@@ -49,6 +49,7 @@ profile.Sets = {
             Hands = 'Seer\'s Mitts +1',
             Ring1 = 'Eremite\'s Ring',
             Ring2 = 'Eremite\'s Ring',
+            Back = 'Black Cape',
             Legs = 'Mage\'s Slacks',    
         },
         ['Dark'] = {
@@ -58,6 +59,7 @@ profile.Sets = {
             Hands = 'Seer\'s Mitts +1',
             Ring1 = 'Eremite\'s Ring',
             Ring2 = 'Eremite\'s Ring',
+            Back = 'Black Cape',
             Legs = 'Mage\'s Slacks',    
         },
     },

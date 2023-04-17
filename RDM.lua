@@ -1,156 +1,117 @@
 local profile = {};
-profile.Sets = {
-    ['Idle'] = {
-        Head = 'Crow Beret',
+local sets = {
+    ['Idle_Priority'] = {
+        Head = { 'Crow Beret', 'Centurion\'s Visor' },
         Neck = 'Black Neckerchief',
         Ear1 = 'Dodge Earring',
         Ear2 = 'Onyx Earring',
-        Body = 'Crow Jupon',
-        Hands = 'Crow Bracers',
+        Body = { 'Crow Jupon', 'Ctr. Scale Mail' },
+        Hands = { 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = 'Tourmaline Ring',
         Ring2 = 'Tourmaline Ring',
         Back = 'Traveler\'s Mantle',
-        Waist = 'Ryl.Kgt. Belt',
-        Legs = 'Crow Hose',
-        Feet = 'Crow Gaiters',
+        Waist = { 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
+        Legs = { 'Crow Hose', 'Ctr. Cuisses' },
+        Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
     },
-    ['Resting'] = {
-    },
-    ['Engaged'] = {
-        Main = 'Crimson Blade',
-        Head = 'Crow Beret',
+    ['Resting'] = {},
+    ['Engaged_Priority'] = {
+        Main = { 'Crimson Blade', 'Fencing Degen' },
+        Head = { 'Crow Beret', 'Centurion\'s Visor' },
         Neck = 'Black Neckerchief',
         Ear1 = 'Dodge Earring',
         Ear2 = 'Onyx Earring',
-        Body = 'Crow Jupon',
-        Hands = 'Crow Bracers',
+        Body = { 'Crow Jupon', 'Ctr. Scale Mail' },
+        Hands = { 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = 'Tourmaline Ring',
         Ring2 = 'Tourmaline Ring',
         Back = 'Traveler\'s Mantle',
-        Waist = 'Ryl.Kgt. Belt',
-        Legs = 'Crow Hose',
-        Feet = 'Crow Gaiters',
+        Waist = { 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
+        Legs = { 'Crow Hose', 'Ctr. Cuisses' },
+        Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
     },
-    ['WeaponSkill'] = {
-        ['Base'] = {},
-        ['Physical'] = {
-            Ring1 = 'Garnet Ring',
-            Ring2 = 'Garnet Ring',
-        },
-        ['Magical'] = {
-            Neck = 'Black Neckerchief',
-            Body = 'Mage\'s Tunic',
-            Ring1 = 'Eremite\'s Ring',
-            Ring2 = 'Eremite\'s Ring',
-            Back = 'Red Cape',
-            Waist = 'Ryl.Kgt. Belt',
-            Legs = 'Mage\'s Slacks',
-        },
-        ['Breath'] = {
-        },
+    ['WSBase'] = {},
+    ['WSPhysical'] = {
+        Ring1 = 'Garnet Ring',
+        Ring2 = 'Garnet Ring',
     },
-    ['Precast'] = {
-        ['FastCast'] = {},
-    },
-    ['Magic'] = {
-        ['Base'] = {},
-        ['Divine'] = {
-        },
-        ['Healing'] = {
-            Main = 'Ebony Wand +1',
-            Body = 'White Cloak',
-            Neck = 'Justice Badge',
-            Ring1 = 'Saintly Ring',
-            Ring2 = 'Saintly Ring',
-            Back = 'Red Cape',
-            Waist = 'Ryl.Kgt. Belt',
-        },
-        ['Enhancing'] = {
-            Main = 'Ebony Wand +1',
-            Body = 'White Cloak',
-            Neck = 'Justice Badge',
-            Ring1 = 'Saintly Ring',
-            Ring2 = 'Saintly Ring',
-            Back = 'Red Cape',
-            Waist = 'Ryl.Kgt. Belt',
-        },
-        ['Enfeebling'] = {
-            ['Base'] = {},
-            ['Light'] = {
-                Main = 'Fencing Degen',
-                Body = 'White Cloak',
-                Neck = 'Justice Badge',
-                Ring1 = 'Saintly Ring',
-                Ring2 = 'Saintly Ring',
-                Back = 'Red Cape',
-                Waist = 'Ryl.Kgt. Belt',
-            },
-            ['Dark'] = {
-                Main = 'Fencing Degen',
-                Neck = 'Black Neckerchief',
-                Body = 'Mage\'s Tunic',
-                Ring1 = 'Eremite\'s Ring',
-                Ring2 = 'Eremite\'s Ring',
-                Back = 'Red Cape',
-                Waist = 'Ryl.Kgt. Belt',
-                Legs = 'Mage\'s Slacks',
-            },
-        },
-        ['Elemental'] = {
-            Main = 'Ebony Wand +1',
-            Neck = 'Black Neckerchief',
-            Body = 'Mage\'s Tunic',
-            Ring1 = 'Eremite\'s Ring',
-            Ring2 = 'Eremite\'s Ring',
-            Back = 'Red Cape',
-            Waist = 'Ryl.Kgt. Belt',
-            Legs = 'Mage\'s Slacks',
-        },
-        ['Dark'] = {
-        },
-    },
-    ['Utility'] = {
-        ['ConserveMP'] = {},
-        ['Fishing'] = {
-            Body = 'Fsh. Tunica',
-            Hands = 'Fsh. Gloves',
-            Legs = 'Fisherman\'s Hose',
-            Feet = 'Fisherman\'s Boots',
-        },
-    },
-    ['Test'] = {
-        Main = 'Crimson Blade',
-        Sub = 'Ryl.Sqr. Shield',
-        Head = 'Crow Beret',
+    ['WSMagical'] = {
         Neck = 'Black Neckerchief',
-        Ear1 = 'Dodge Earring',
-        Ear2 = 'Onyx Earring',
-        Body = 'Crow Jupon',
-        Hands = 'Crow Bracers',
-        Ring1 = 'Tourmaline Ring',
-        Ring2 = 'Tourmaline Ring',
-        Back = 'Traveler\'s Mantle',
+        Body = 'Mage\'s Tunic',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Back = 'Red Cape',
         Waist = 'Ryl.Kgt. Belt',
-        Legs = 'Crow Hose',
-        Feet = 'Crow Gaiters',
+        Legs = 'Mage\'s Slacks',
+        Feet = 'Warlock\'s Boots',
     },
-    ['Test2'] = {
+    ['WSBreath'] = {},
+    ['FastCast'] = {},
+    ['MagBase'] = {},
+    ['MagDivine'] = {},
+    ['MagHealing_Priority'] = {
+        Main = { 'Ebony Wand +1', 'Solid Wand' },
+        Body = 'White Cloak',
+        Neck = 'Justice Badge',
+        Ring1 = 'Saintly Ring',
+        Ring2 = 'Saintly Ring',
+        Back = 'Red Cape',
+        Waist = 'Ryl.Kgt. Belt',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['MagEnhancing_Priority'] = {
+        Main = { 'Ebony Wand +1', 'Solid Wand' },
+        Body = 'White Cloak',
+        Neck = 'Justice Badge',
+        Ring1 = 'Saintly Ring',
+        Ring2 = 'Saintly Ring',
+        Back = 'Red Cape',
+        Waist = 'Ryl.Kgt. Belt',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['MagEnfeeblingBase'] = {},
+    ['MagEnfeeblingLight'] = {
         Main = 'Fencing Degen',
-        Sub = 'Ryl.Sqr. Shield',
-        Head = 'Crow Beret',
-        Neck = 'Black Neckerchief',
-        Ear1 = 'Dodge Earring',
-        Ear2 = 'Onyx Earring',
-        Body = 'Crow Jupon',
-        Hands = 'Crow Bracers',
-        Ring1 = 'Tourmaline Ring',
-        Ring2 = 'Tourmaline Ring',
-        Back = 'Traveler\'s Mantle',
+        Body = 'White Cloak',
+        Neck = 'Justice Badge',
+        Ring1 = 'Saintly Ring',
+        Ring2 = 'Saintly Ring',
+        Back = 'Red Cape',
         Waist = 'Ryl.Kgt. Belt',
-        Legs = 'Crow Hose',
-        Feet = 'Crow Gaiters',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['MagEnfeeblingDark_Priority'] = {
+        Main = 'Fencing Degen',
+        Neck = 'Black Neckerchief',
+        Body = 'Mage\'s Tunic',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Back = { 'Red Cape', 'Black Cape' },
+        Waist = 'Ryl.Kgt. Belt',
+        Legs = 'Mage\'s Slacks',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['MagElemental_Priority'] = {
+        Main = { 'Ebony Wand +1', 'Solid Wand' },
+        Neck = 'Black Neckerchief',
+        Body = 'Mage\'s Tunic',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Back = { 'Red Cape', 'Black Cape' },
+        Waist = 'Ryl.Kgt. Belt',
+        Legs = 'Mage\'s Slacks',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['MagDark'] = {},
+    ['UtilConserveMP'] = {},
+    ['UtilFishing'] = {
+        Body = 'Fsh. Tunica',
+        Hands = 'Fsh. Gloves',
+        Legs = 'Fisherman\'s Hose',
+        Feet = 'Fisherman\'s Boots',
     },
 };
+profile.Sets = sets;
 
 -- Spells table(s)
 local Spells = {};
@@ -208,12 +169,12 @@ WeaponSkills.Breath = {
 
 -- Settings
 local Settings = {
-    IsFishing = false
+    CurrentLevel  = 0,
+    IsFishing = false,
 };
 
 -- Start of the profile functions
-profile.Packer = {
-};
+profile.Packer = {};
 
 -- When the profile loads
 profile.OnLoad = function()
@@ -244,20 +205,27 @@ profile.HandleDefault = function()
     -- Get the player table
     local player = gData.GetPlayer();
 
+    -- Evaluate for level sync
+    local curLevel = AshitaCore:GetMemoryManager():GetPlayer():GetMainJobLevel();
+    if (curLevel ~= Settings.CurrentLevel) then
+        gFunc.EvaluateLevels(profile.Sets, curLevel);
+        Settings.CurrentLevel = curLevel;
+    end
+    
     -- When engaged
     if (player.Status == 'Engaged') then
-        gFunc.EquipSet(profile.Sets.Engaged);
+        gFunc.EquipSet(sets.Engaged);
 
     -- When resting
     elseif (player.Status == 'Resting') then
-        gFunc.EquipSet(profile.Sets.Resting);
+        gFunc.EquipSet(sets.Resting);
 
     -- All other statuses
     else
         if (Settings.IsFishing == true) then
-            gFunc.EquipSet(profile.Sets.Utility.Fishing);
+            gFunc.EquipSet(sets.UtilFishing);
         else
-            gFunc.EquipSet(profile.Sets.Idle);
+            gFunc.EquipSet(sets.Idle);
         end
     end
 
@@ -273,7 +241,7 @@ end
 
 -- Before casting begins
 profile.HandlePrecast = function()
-    gFunc.EquipSet(profile.Sets.FastCast);
+    gFunc.EquipSet(sets.FastCast);
 end
 
 -- When a spell is cast
@@ -286,8 +254,8 @@ profile.HandleMidcast = function()
     if (action.Skill == 'Divine Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Divine
+                sets.MagBase,
+                sets.MagDivine
             )
         );
 
@@ -295,8 +263,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Healing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Healing
+                sets.MagBase,
+                sets.MagHealing
             )
         );
 
@@ -304,8 +272,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Enhancing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Enhancing
+                sets.MagBase,
+                sets.MagEnhancing
             )
         );
 
@@ -316,10 +284,10 @@ profile.HandleMidcast = function()
         if (action.Type == "White Magic") then
             gFunc.EquipSet(
                 gFunc.Combine(
-                    profile.Sets.Magic.Base,
+                    sets.MagBase,
                     gFunc.Combine(
-                        profile.Sets.Magic.Enfeebling.Base,
-                        profile.Sets.Magic.Enfeebling.Light
+                        sets.MagEnfeeblingBase,
+                        sets.MagEnfeeblingLight
                     )
                 )
             );
@@ -328,10 +296,10 @@ profile.HandleMidcast = function()
         else
             gFunc.EquipSet(
                 gFunc.Combine(
-                    profile.Sets.Magic.Base,
+                    sets.MagBase,
                     gFunc.Combine(
-                        profile.Sets.Magic.Enfeebling.Base,
-                        profile.Sets.Magic.Enfeebling.Dark
+                        sets.MagEnfeeblingBase,
+                        sets.MagEnfeeblingDark
                     )
                 )
             );
@@ -341,8 +309,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Elemental Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Elemental
+                sets.MagBase,
+                sets.MagElemental
             )
         );
 
@@ -350,8 +318,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Dark Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Dark
+                sets.MagBase,
+                sets.MagDark
             )
         );
 
@@ -359,7 +327,7 @@ profile.HandleMidcast = function()
 
     -- Conserve MP overrides
     if (Spells.ConserveMP[action.Name]) then
-        gFunc.EquipSet(profile.Sets.Utility.ConserveMP);
+        gFunc.EquipSet(sets.UtilConserveMP);
     end
 
 end
@@ -382,8 +350,8 @@ profile.HandleWeaponskill = function()
     if (WeaponSkills.Physical[action.Name]) then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Physical
+                sets.WSBase,
+                sets.WSPhysical
             )
         );
 
@@ -391,8 +359,8 @@ profile.HandleWeaponskill = function()
     elseif (WeaponSkills.Magical[action.Name]) then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Magical
+                sets.WSBase,
+                sets.WSMagical
             )
         );
 
@@ -400,8 +368,8 @@ profile.HandleWeaponskill = function()
     elseif (WeaponSkills.Breath[action.Name]) then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Breath
+                sets.WSBase,
+                sets.WSBreath
             )
         );
     
