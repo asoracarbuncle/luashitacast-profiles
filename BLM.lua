@@ -1,7 +1,7 @@
 local profile = {};
 profile.Sets = {
-    ['Idle'] = {
-        Main = 'Yew Wand +1',
+    ['Idle_Priority'] = {
+        Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand', 'Yew Wand +1' },
         Neck = 'Black Neckerchief',
         Ear1 = 'Onyx Earring',
         Ear2 = 'Onyx Earring',
@@ -9,68 +9,60 @@ profile.Sets = {
         Hands = 'Seer\'s Mitts +1',
         Ring1 = 'Tourmaline Ring',
         Ring2 = 'Tourmaline Ring',
-        Back = 'Mist Silk Cape',
+        Back = 'Black Cape',
         Legs = 'Mage\'s Slacks',
         Feet = 'Solea',
     },
     ['Resting'] = {},
     ['Engaged'] = {},
-    ['WeaponSkill'] = {
-        ['Base'] = {},
-        ['Physical'] = {},
-        ['Magical'] = {},
-        ['Breath'] = {},
+    ['FastCast'] = {},
+    ['MagBase'] = {},
+    ['MagDivine'] = {},
+    ['MagHealing'] = {
+        Neck = 'Justice Badge',
+        Hands = 'Seer\'s Mitts +1',
+        Ring1 = 'Saintly Ring',
+        Ring2 = 'Saintly Ring',
+        Back = 'Mist Silk Cape',
     },
-    ['Precast'] = {
-        ['FastCast'] = {},
+    ['MagEnhancing'] = {},
+    ['MagEnfeeblingBase_Priority'] = {
+        Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand', 'Yew Wand +1' },
+        Neck = 'Black Neckerchief',
+        Body = 'Mage\'s Tunic',
+        Hands = 'Seer\'s Mitts +1',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Legs = 'Mage\'s Slacks',        
     },
-    ['Magic'] = {
-        ['Base'] = {},
-        ['Divine'] = {},
-        ['Healing'] = {},
-        ['Enhancing'] = {},
-        ['Enfeebling'] = {
-            ['Base'] = {
-                Main = 'Yew Wand +1',
-                Neck = 'Black Neckerchief',
-                Body = 'Mage\'s Tunic',
-                Hands = 'Seer\'s Mitts +1',
-                Ring1 = 'Eremite\'s Ring',
-                Ring2 = 'Eremite\'s Ring',
-                Legs = 'Mage\'s Slacks',        
-            },
-            ['Light'] = {},
-            ['Dark'] = {},
-        },
-        ['Elemental'] = {
-            Main = 'Yew Wand +1',
-            Neck = 'Black Neckerchief',
-            Body = 'Mage\'s Tunic',
-            Hands = 'Seer\'s Mitts +1',
-            Ring1 = 'Eremite\'s Ring',
-            Ring2 = 'Eremite\'s Ring',
-            Back = 'Black Cape',
-            Legs = 'Mage\'s Slacks',    
-        },
-        ['Dark'] = {
-            Main = 'Yew Wand +1',
-            Neck = 'Black Neckerchief',
-            Body = 'Mage\'s Tunic',
-            Hands = 'Seer\'s Mitts +1',
-            Ring1 = 'Eremite\'s Ring',
-            Ring2 = 'Eremite\'s Ring',
-            Back = 'Black Cape',
-            Legs = 'Mage\'s Slacks',    
-        },
+    ['MagEnfeeblingLight'] = {},
+    ['MagEnfeeblingDark'] = {},
+    ['MagElemental_Priority'] = {
+        Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand', 'Yew Wand +1' },
+        Neck = 'Black Neckerchief',
+        Body = 'Mage\'s Tunic',
+        Hands = 'Seer\'s Mitts +1',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Back = 'Black Cape',
+        Legs = 'Mage\'s Slacks',    
     },
-    ['Utility'] = {
-        ['ConserveMP'] = {},
-        ['Fishing'] = {
-            Body = 'Fsh. Tunica',
-            Hands = 'Fsh. Gloves',
-            Legs = 'Fisherman\'s Hose',
-            Feet = 'Fisherman\'s Boots',
-        },
+    ['MagDark_Priority'] = {
+        Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand', 'Yew Wand +1' },
+        Neck = 'Black Neckerchief',
+        Body = 'Mage\'s Tunic',
+        Hands = 'Seer\'s Mitts +1',
+        Ring1 = 'Eremite\'s Ring',
+        Ring2 = 'Eremite\'s Ring',
+        Back = 'Black Cape',
+        Legs = 'Mage\'s Slacks',    
+    },
+    ['UtilConserveMP'] = {},
+    ['UtilFishing'] = {
+        Body = 'Fsh. Tunica',
+        Hands = 'Fsh. Gloves',
+        Legs = 'Fisherman\'s Hose',
+        Feet = 'Fisherman\'s Boots',
     },
 };
 
@@ -142,8 +134,15 @@ end
 -- When an action is complete and the character resets to a default state
 profile.HandleDefault = function()
 
-    -- Get the player table
+    -- Get the required data table(s)
     local player = gData.GetPlayer();
+
+    -- Evaluate for level sync
+    local curLevel = player.MainJobLevel;
+    if (curLevel ~= Settings.CurrentLevel) then
+        gFunc.EvaluateLevels(profile.Sets, curLevel);
+        Settings.CurrentLevel = curLevel;
+    end
 
     -- When engaged
     if (player.Status == 'Engaged') then
@@ -156,7 +155,7 @@ profile.HandleDefault = function()
     -- All other statuses
     else
         if (Settings.IsFishing == true) then
-            gFunc.EquipSet(profile.Sets.Utility.Fishing);
+            gFunc.EquipSet(profile.Sets.UtilFishing);
         else
             gFunc.EquipSet(profile.Sets.Idle);
         end
@@ -187,8 +186,8 @@ profile.HandleMidcast = function()
     if (action.Skill == 'Divine Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Divine
+                profile.Sets.MagBase,
+                profile.Sets.MagDivine
             )
         );
 
@@ -196,8 +195,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Healing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Healing
+                profile.Sets.MagBase,
+                profile.Sets.MagHealing
             )
         );
 
@@ -205,8 +204,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Enhancing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Enhancing
+                profile.Sets.MagBase,
+                profile.Sets.MagEnhancing
             )
         );
 
@@ -217,10 +216,10 @@ profile.HandleMidcast = function()
         if (action.Type == "White Magic") then
             gFunc.EquipSet(
                 gFunc.Combine(
-                    profile.Sets.Magic.Base,
+                    profile.Sets.MagBase,
                     gFunc.Combine(
-                        profile.Sets.Magic.Enfeebling.Base,
-                        profile.Sets.Magic.Enfeebling.Light
+                        profile.Sets.MagEnfeeblingBase,
+                        profile.Sets.MagEnfeeblingLight
                     )
                 )
             );
@@ -229,10 +228,10 @@ profile.HandleMidcast = function()
         else
             gFunc.EquipSet(
                 gFunc.Combine(
-                    profile.Sets.Magic.Base,
+                    profile.Sets.MagBase,
                     gFunc.Combine(
-                        profile.Sets.Magic.Enfeebling.Base,
-                        profile.Sets.Magic.Enfeebling.Dark
+                        profile.Sets.MagEnfeeblingBase,
+                        profile.Sets.MagEnfeeblingDark
                     )
                 )
             );
@@ -242,8 +241,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Elemental Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Elemental
+                profile.Sets.MagBase,
+                profile.Sets.MagElemental
             )
         );
 
@@ -251,8 +250,8 @@ profile.HandleMidcast = function()
     elseif (action.Skill == 'Dark Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
-                profile.Sets.Magic.Base,
-                profile.Sets.Magic.Dark
+                profile.Sets.MagBase,
+                profile.Sets.MagDark
             )
         );
 
@@ -260,7 +259,7 @@ profile.HandleMidcast = function()
 
     -- Conserve MP overrides
     if (Spells.ConserveMP[action.Name]) then
-        gFunc.EquipSet(profile.Sets.Utility.ConserveMP);
+        gFunc.EquipSet(profile.Sets.UtilConserveMP);
     end
 
 end
@@ -275,39 +274,6 @@ end
 
 -- When a weapons skill is triggered
 profile.HandleWeaponskill = function()
-
-    -- Get the action table
-    local action = gData.GetAction();
-
-    -- Physical weapon skill
-    if (WeaponSkills.Physical[action.Name]) then
-        gFunc.EquipSet(
-            gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Physical
-            )
-        );
-
-    -- Magical weapon skill
-    elseif (WeaponSkills.Magical[action.Name]) then
-        gFunc.EquipSet(
-            gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Magical
-            )
-        );
-
-    -- Breath weapon skill
-    elseif (WeaponSkills.Breath[action.Name]) then
-        gFunc.EquipSet(
-            gFunc.Combine(
-                profile.Sets.WeaponSkill.Base,
-                profile.Sets.WeaponSkill.Breath
-            )
-        );
-    
-    end
-
 end
 
 return profile;
