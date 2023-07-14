@@ -3,16 +3,16 @@ local sets = {
     ['Idle_Priority'] = {
         Main = 'Earth Staff',
         Head = { 'Scorpion Mask', 'Crow Beret', 'Centurion\'s Visor' },
-        Neck = 'Black Neckerchief',
+        Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Geist Earring',
         Ear2 = 'Morion Earring',
         Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
-        Hands = { 'Tiger Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
+        Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Back = { 'Nomad\'s Mantle +1', 'Traveler\'s Mantle' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
-        Legs = { 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
+        Legs = { 'Warlock\'s Tights', 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
         Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
     },
     ['Resting'] = {
@@ -22,16 +22,16 @@ local sets = {
         Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
         Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
         Head = { 'Scorpion Mask', 'Crow Beret', 'Centurion\'s Visor' },
-        Neck = 'Black Neckerchief',
+        Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Geist Earring',
         Ear2 = 'Morion Earring',
         Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
-        Hands = { 'Tiger Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
+        Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Back = { 'Nomad\'s Mantle +1', 'Traveler\'s Mantle' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
-        Legs = { 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
+        Legs = { 'Warlock\'s Tights', 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
         Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
     },
     ['WSBase'] = {},
@@ -44,7 +44,7 @@ local sets = {
         Body = 'Mage\'s Tunic',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
-        Back = 'Red Cape',
+        Back = { 'Red Cape', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
         Legs = 'Mage\'s Slacks',
         Feet = 'Warlock\'s Boots',
@@ -61,23 +61,25 @@ local sets = {
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = 'Red Cape',
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
+        Legs = 'Warlock\'s Tights',
         Feet = 'Warlock\'s Boots',
     },
     ['MagEnhancing_Priority'] = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
         Body = 'White Cloak',
-        Neck = 'Justice Badge',
+        Neck = 'Enhancing Torque',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = 'Red Cape',
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
+        Legs = 'Warlock\'s Tights',
         Feet = 'Warlock\'s Boots',
     },
     ['MagEnfeeblingBase'] = {},
     ['MagEnfeeblingLight_Priority'] = {
         Main = 'Fencing Degen',
         Body = 'White Cloak',
-        Neck = 'Justice Badge',
+        Neck = 'Enfeebling Torque',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = 'Red Cape',
@@ -86,7 +88,7 @@ local sets = {
     },
     ['MagEnfeeblingDark_Priority'] = {
         Main = 'Fencing Degen',
-        Neck = 'Black Neckerchief',
+        Neck = 'Enfeebling Torque',
         Body = 'Mage\'s Tunic',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
@@ -356,6 +358,21 @@ profile.HandleMidcast = function()
             );
         end
     
+        -- Element overrides
+        if (action.Element == 'Earth') then
+            gFunc.EquipSet(sets.UtilMagEarth);
+        elseif (action.Element == 'Fire') then
+            gFunc.EquipSet(sets.UtilMagFire);
+        elseif (action.Element == 'Ice') then
+            gFunc.EquipSet(sets.UtilMagIce);
+        elseif (action.Element == 'Thunder') then
+            gFunc.EquipSet(sets.UtilMagThunder);
+        elseif (action.Element == 'Water') then
+            gFunc.EquipSet(sets.UtilMagWater);
+        elseif (action.Element == 'Wind') then
+            gFunc.EquipSet(sets.UtilMagWind);
+        end
+
     -- Elemental Magic
     elseif (action.Skill == 'Elemental Magic') then
         gFunc.EquipSet(
