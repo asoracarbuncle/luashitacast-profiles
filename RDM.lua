@@ -172,16 +172,6 @@ Spells.ConserveMP = {
     ['Warp II'] = true,
 }
 
--- Elemental debuffs
-Spells.ElementalDebuffs = {
-    ['Burn'] = true,
-    ['Choke'] = true,
-    ['Drown'] = true,
-    ['Frost'] = true,
-    ['Rasp'] = true,
-    ['Shock'] = true,
-}
-
 -- Weapon Skill Table(s)
 local WeaponSkills = {};
 
