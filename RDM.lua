@@ -2,9 +2,10 @@ local profile = {};
 local sets = {
     ['Idle_Priority'] = {
         Main = 'Earth Staff',
-        Head = { 'Scorpion Mask', 'Crow Beret', 'Centurion\'s Visor' },
+        Ammo = 'Phtm. Tathlum',
+        Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
-        Ear1 = 'Geist Earring',
+        Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
         Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
@@ -21,9 +22,10 @@ local sets = {
     ['Engaged_Priority'] = {
         Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
         Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
-        Head = { 'Scorpion Mask', 'Crow Beret', 'Centurion\'s Visor' },
+        Ammo = 'Phtm. Tathlum',
+        Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
-        Ear1 = 'Geist Earring',
+        Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
         Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
@@ -40,17 +42,22 @@ local sets = {
         Ring2 = 'Garnet Ring',
     },
     ['WSMagical_Priority'] = {
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
         Neck = 'Black Neckerchief',
-        Body = 'Mage\'s Tunic',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
-        Back = { 'Red Cape', 'Black Cape' },
+        Back = { 'Red Cape +1', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
-        Legs = 'Mage\'s Slacks',
+        Legs = { 'Magic Cuisses', 'Mage\'s Slacks' },
         Feet = 'Warlock\'s Boots',
     },
     ['WSBreath'] = {},
-    ['FastCast'] = {},
+    ['FastCast'] = {
+        Head = 'Warlock\'s Chapeau',
+    },
     ['MagBase'] = {},
     ['MagDivine'] = {},
     ['MagHealing_Priority'] = {
@@ -79,6 +86,7 @@ local sets = {
     ['MagEnfeeblingLight_Priority'] = {
         Main = 'Fencing Degen',
         Body = 'White Cloak',
+        Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
@@ -88,6 +96,7 @@ local sets = {
     },
     ['MagEnfeeblingDark_Priority'] = {
         Main = 'Fencing Degen',
+        Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
         Body = 'Mage\'s Tunic',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
@@ -99,13 +108,16 @@ local sets = {
     },
     ['MagElemental_Priority'] = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
         Neck = 'Black Neckerchief',
-        Body = 'Mage\'s Tunic',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
-        Back = { 'Red Cape', 'Black Cape' },
+        Back = { 'Red Cape +1', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
-        Legs = 'Mage\'s Slacks',
+        Legs = { 'Magic Cuisses', 'Mage\'s Slacks' },
         Feet = 'Warlock\'s Boots',
     },
     ['MagDark'] = {
@@ -114,6 +126,21 @@ local sets = {
     ['UtilConserveMP'] = {},
     ['UtilCurePotency'] = {
         Main = 'Light Staff',
+    },
+    ['UtilFishing'] = {
+        Body = 'Fsh. Tunica',
+        Hands = 'Fsh. Gloves',
+        Legs = 'Fisherman\'s Hose',
+        Feet = 'Fisherman\'s Boots',
+    },
+    ['UtilInvisSneak'] = {
+        Back = 'Skulker\'s Cape',
+    },
+    ['UtilLowMP'] = {
+        Neck = 'Uggalepih Pendant',
+    },
+    ['UtilMagDark'] = {
+        Main = 'Dark Staff',
     },
     ['UtilMagEarth'] = {
         Main = 'Earth Staff',
@@ -124,6 +151,9 @@ local sets = {
     ['UtilMagIce'] = {
         Main = 'Ice Staff',
     },
+    ['UtilMagLight'] = {
+        Main = 'Light Staff',
+    },
     ['UtilMagThunder'] = {
         Main = 'Thunder Staff',
     },
@@ -133,20 +163,14 @@ local sets = {
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
     },
-    ['UtilFishing'] = {
-        Body = 'Fsh. Tunica',
-        Hands = 'Fsh. Gloves',
-        Legs = 'Fisherman\'s Hose',
-        Feet = 'Fisherman\'s Boots',
-    },
 };
 profile.Sets = sets;
 profile.Packer = {};
 
--- Spells table(s)
-local Spells = {};
-
+-----------------------------------------------------------------
 -- Cure spells
+-----------------------------------------------------------------
+local Spells = {};
 Spells.Cures = {
     ['Cure'] = true,
     ['Cure II'] = true,
@@ -164,7 +188,17 @@ Spells.Cures = {
     ['Cura III'] = true,
 }
 
+-----------------------------------------------------------------
+-- Invisible and Sneak spells
+-----------------------------------------------------------------
+Spells.InvisSneak = {
+    ['Invisible'] = true,
+    ['Sneak'] = true,
+}
+
+-----------------------------------------------------------------
 -- Spells whose gear is of no consequence
+-----------------------------------------------------------------
 Spells.ConserveMP = {
     ['Escape'] = true,
     ['Tractor'] = true,
@@ -172,10 +206,10 @@ Spells.ConserveMP = {
     ['Warp II'] = true,
 }
 
--- Weapon Skill Table(s)
-local WeaponSkills = {};
-
+-----------------------------------------------------------------
 -- Physical weapon skills
+-----------------------------------------------------------------
+local WeaponSkills = {};
 WeaponSkills.Physical = {
     ['Fast Blade'] = true,
     ['Flat Blade'] = true,
@@ -190,7 +224,9 @@ WeaponSkills.Physical = {
     ['Expiacion'] = true,
 };
 
+-----------------------------------------------------------------
 -- Magical weapon skills
+-----------------------------------------------------------------
 WeaponSkills.Magical = {
     ['Burning Blade'] = true,
     ['Red Lotus Blade'] = true,
@@ -199,31 +235,43 @@ WeaponSkills.Magical = {
     ['Sanguine Blade'] = true,
 };
 
+-----------------------------------------------------------------
 -- Breath weapon skills
+-----------------------------------------------------------------
 WeaponSkills.Breath = {
     ['Spirits Within'] = true,
     ['Atonement'] = true,
 };
 
+-----------------------------------------------------------------
 -- Settings
+-----------------------------------------------------------------
 local Settings = {
     CurrentLevel  = 0,
     IsFishing = false,
 };
 
+-----------------------------------------------------------------
 -- Start of the profile functions
+-----------------------------------------------------------------
 profile.Packer = {};
 
+-----------------------------------------------------------------
 -- When the profile loads
+-----------------------------------------------------------------
 profile.OnLoad = function()
     gSettings.AllowAddSet = true;
 end
 
+-----------------------------------------------------------------
 -- When the profile unloads
+-----------------------------------------------------------------
 profile.OnUnload = function()
 end
 
+-----------------------------------------------------------------
 -- When a manual command is sent to Ashitacast
+-----------------------------------------------------------------
 profile.HandleCommand = function(args)
 
     -- Catch the "fishing" command
@@ -237,7 +285,10 @@ profile.HandleCommand = function(args)
 
 end
 
--- When an action is complete and the character resets to a default state
+-----------------------------------------------------------------
+-- When an action is complete and the character resets to a
+-- default state
+-----------------------------------------------------------------
 profile.HandleDefault = function()
 
     -- Get the required data table(s)
@@ -269,26 +320,36 @@ profile.HandleDefault = function()
 
 end
 
+-----------------------------------------------------------------
 -- When job abilities are triggered
+-----------------------------------------------------------------
 profile.HandleAbility = function()
 end
 
+-----------------------------------------------------------------
 -- When items are used
+-----------------------------------------------------------------
 profile.HandleItem = function()
 end
 
+-----------------------------------------------------------------
 -- Before casting begins
+-----------------------------------------------------------------
 profile.HandlePrecast = function()
     gFunc.EquipSet(sets.FastCast);
 end
 
+-----------------------------------------------------------------
 -- When a spell is cast
+-----------------------------------------------------------------
 profile.HandleMidcast = function()
 
     -- Get the required data table(s)
     local action = gData.GetAction();
 
+    -----------------------------------------------------------------
     -- Divine Magic
+    -----------------------------------------------------------------
     if (action.Skill == 'Divine Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
@@ -297,7 +358,9 @@ profile.HandleMidcast = function()
             )
         );
 
+    -----------------------------------------------------------------
     -- Healing Magic
+    -----------------------------------------------------------------
     elseif (action.Skill == 'Healing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
@@ -306,12 +369,14 @@ profile.HandleMidcast = function()
             )
         );
 
-        -- Cure overrides
+        -- Cure override
         if (Spells.Cures[action.Name]) then
             gFunc.EquipSet(sets.UtilCurePotency);
         end
 
+    -----------------------------------------------------------------
     -- Enhancing Magic
+    -----------------------------------------------------------------
     elseif (action.Skill == 'Enhancing Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
@@ -320,7 +385,14 @@ profile.HandleMidcast = function()
             )
         );
 
+        -- Invis/Sneak override
+        if (Spells.InvisSneak[action.Name]) then
+            gFunc.EquipSet(sets.UtilInvisSneak);
+        end
+
+    -----------------------------------------------------------------
     -- Enfeebling Magic
+    -----------------------------------------------------------------
     elseif (action.Skill == 'Enfeebling Magic') then
 
         -- Light Enfeebles
@@ -349,12 +421,16 @@ profile.HandleMidcast = function()
         end
     
         -- Element overrides
-        if (action.Element == 'Earth') then
+        if (action.Element == 'Dark') then
+            gFunc.EquipSet(sets.UtilMagDark);
+        elseif (action.Element == 'Earth') then
             gFunc.EquipSet(sets.UtilMagEarth);
         elseif (action.Element == 'Fire') then
             gFunc.EquipSet(sets.UtilMagFire);
         elseif (action.Element == 'Ice') then
             gFunc.EquipSet(sets.UtilMagIce);
+        elseif (action.Element == 'Light') then
+            gFunc.EquipSet(sets.UtilMagLight);
         elseif (action.Element == 'Thunder') then
             gFunc.EquipSet(sets.UtilMagThunder);
         elseif (action.Element == 'Water') then
@@ -363,7 +439,9 @@ profile.HandleMidcast = function()
             gFunc.EquipSet(sets.UtilMagWind);
         end
 
+    -----------------------------------------------------------------
     -- Elemental Magic
+    -----------------------------------------------------------------
     elseif (action.Skill == 'Elemental Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
@@ -373,12 +451,16 @@ profile.HandleMidcast = function()
         );
 
         -- Element overrides
-        if (action.Element == 'Earth') then
+        if (action.Element == 'Dark') then
+            gFunc.EquipSet(sets.UtilMagDark);
+        elseif (action.Element == 'Earth') then
             gFunc.EquipSet(sets.UtilMagEarth);
         elseif (action.Element == 'Fire') then
             gFunc.EquipSet(sets.UtilMagFire);
         elseif (action.Element == 'Ice') then
             gFunc.EquipSet(sets.UtilMagIce);
+        elseif (action.Element == 'Light') then
+            gFunc.EquipSet(sets.UtilMagLight);
         elseif (action.Element == 'Thunder') then
             gFunc.EquipSet(sets.UtilMagThunder);
         elseif (action.Element == 'Water') then
@@ -387,7 +469,14 @@ profile.HandleMidcast = function()
             gFunc.EquipSet(sets.UtilMagWind);
         end
 
+        -- Low MP Override
+        if (action.MppAftercast <= 50) then
+            gFunc.EquipSet(sets.UtilLowMP);
+        end
+
+    -----------------------------------------------------------------
     -- Dark Magic
+    -----------------------------------------------------------------
     elseif (action.Skill == 'Dark Magic') then
         gFunc.EquipSet(
             gFunc.Combine(
