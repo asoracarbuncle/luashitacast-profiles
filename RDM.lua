@@ -102,6 +102,7 @@ local sets = {
     },
     ['MagEnfeeblingDark_Priority'] = {
         Main = 'Fencing Degen',
+        Ammo = 'Phtm. Tathlum',
         Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
         Ear1 = 'Morion Earring',
@@ -170,38 +171,6 @@ local sets = {
     },
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
-    },
-    ['healing'] = {
-        Main = 'Earth Staff',
-        Ammo = 'Phtm. Tathlum',
-        Head = 'Warlock\'s Chapeau',
-        Neck = 'Evasion Torque',
-        Ear1 = 'Geist Earring',
-        Ear2 = 'Geist Earring',
-        Body = 'Tiger Jerkin',
-        Hands = 'Warlock\'s Gloves',
-        Ring1 = 'Jadeite Ring',
-        Ring2 = 'Jadeite Ring',
-        Back = 'Nomad\'s Mantle +1',
-        Waist = 'Penitent\'s Rope',
-        Legs = 'Warlock\'s Tights',
-        Feet = 'Warlock\'s Boots',
-    },
-    ['mist'] = {
-        Main = 'Earth Staff',
-        Ammo = 'Phtm. Tathlum',
-        Head = 'Warlock\'s Chapeau',
-        Neck = 'Evasion Torque',
-        Ear1 = 'Morion Earring',
-        Ear2 = 'Morion Earring',
-        Body = 'Tiger Jerkin',
-        Hands = 'Warlock\'s Gloves',
-        Ring1 = 'Jadeite Ring',
-        Ring2 = 'Jadeite Ring',
-        Back = 'Mist Silk Cape',
-        Waist = 'Penitent\'s Rope',
-        Legs = 'Warlock\'s Tights',
-        Feet = 'Warlock\'s Boots',
     },
 };
 profile.Sets = sets;
@@ -571,6 +540,11 @@ profile.HandleWeaponskill = function()
                 )
             )
         );
+
+        -- Low MP Override
+        if (action.MppAftercast <= 50) then
+            gFunc.EquipSet(sets.UtilLowMP);
+        end
 
     -- Breath weapon skill
     elseif (WeaponSkills.Breath[action.Name]) then
