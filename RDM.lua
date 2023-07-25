@@ -64,9 +64,11 @@ local sets = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
         Body = 'White Cloak',
         Neck = 'Justice Badge',
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
-        Back = 'Red Cape',
+        Back = { 'Red Cape +1', 'Mist Silk Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
         Legs = 'Warlock\'s Tights',
         Feet = 'Warlock\'s Boots',
@@ -75,9 +77,11 @@ local sets = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
         Body = 'White Cloak',
         Neck = 'Enhancing Torque',
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
-        Back = 'Red Cape',
+        Back = { 'Red Cape +1', 'Mist Silk Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
         Legs = 'Warlock\'s Tights',
         Feet = 'Warlock\'s Boots',
@@ -88,9 +92,11 @@ local sets = {
         Body = 'White Cloak',
         Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
-        Back = 'Red Cape',
+        Back = { 'Red Cape +1', 'Mist Silk Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
         Feet = 'Warlock\'s Boots',
     },
@@ -98,10 +104,12 @@ local sets = {
         Main = 'Fencing Degen',
         Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
         Body = 'Mage\'s Tunic',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
-        Back = { 'Red Cape', 'Black Cape' },
+        Back = { 'Red Cape +1', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
         Legs = 'Mage\'s Slacks',
         Feet = 'Warlock\'s Boots',
@@ -162,6 +170,38 @@ local sets = {
     },
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
+    },
+    ['healing'] = {
+        Main = 'Earth Staff',
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
+        Neck = 'Evasion Torque',
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
+        Body = 'Tiger Jerkin',
+        Hands = 'Warlock\'s Gloves',
+        Ring1 = 'Jadeite Ring',
+        Ring2 = 'Jadeite Ring',
+        Back = 'Nomad\'s Mantle +1',
+        Waist = 'Penitent\'s Rope',
+        Legs = 'Warlock\'s Tights',
+        Feet = 'Warlock\'s Boots',
+    },
+    ['mist'] = {
+        Main = 'Earth Staff',
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
+        Neck = 'Evasion Torque',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
+        Body = 'Tiger Jerkin',
+        Hands = 'Warlock\'s Gloves',
+        Ring1 = 'Jadeite Ring',
+        Ring2 = 'Jadeite Ring',
+        Back = 'Mist Silk Cape',
+        Waist = 'Penitent\'s Rope',
+        Legs = 'Warlock\'s Tights',
+        Feet = 'Warlock\'s Boots',
     },
 };
 profile.Sets = sets;
@@ -481,7 +521,10 @@ profile.HandleMidcast = function()
         gFunc.EquipSet(
             gFunc.Combine(
                 sets.MagBase,
-                sets.MagDark
+                gFunc.Combine(
+                    sets.MagElemental,
+                    sets.MagDark
+                )
             )
         );
 
@@ -522,7 +565,10 @@ profile.HandleWeaponskill = function()
         gFunc.EquipSet(
             gFunc.Combine(
                 sets.WSBase,
-                sets.WSMagical
+                gFunc.Combine(
+                    sets.MagElemental,
+                    sets.WSMagical
+                )
             )
         );
 
