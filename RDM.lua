@@ -7,7 +7,7 @@ local sets = {
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
-        Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
+        Body = { 'Warlock\'s Tabard', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
@@ -27,7 +27,7 @@ local sets = {
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
-        Body = { 'Tiger Jerkin', 'Crow Jupon', 'Ctr. Scale Mail' },
+        Body = { 'Warlock\'s Tabard', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
@@ -89,7 +89,7 @@ local sets = {
     ['MagEnfeeblingBase'] = {},
     ['MagEnfeeblingLight_Priority'] = {
         Main = 'Fencing Degen',
-        Body = 'White Cloak',
+        Body = { 'Warlock\'s Tabard', 'White Cloak' },
         Head = 'Warlock\'s Chapeau',
         Neck = 'Enfeebling Torque',
         Ear1 = 'Geist Earring',
@@ -107,7 +107,7 @@ local sets = {
         Neck = 'Enfeebling Torque',
         Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
-        Body = 'Mage\'s Tunic',
+        Body = { 'Warlock\'s Tabard', 'Mage\'s Tunic' },
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Back = { 'Red Cape +1', 'Black Cape' },
@@ -132,7 +132,9 @@ local sets = {
     ['MagDark'] = {
         Main = 'Dark Staff',
     },
-    ['UtilConserveMP'] = {},
+    ['UtilConserveMP'] = {
+        Body = 'Warlock\'s Tabard',
+    },
     ['UtilCurePotency'] = {
         Main = 'Light Staff',
     },
@@ -171,6 +173,22 @@ local sets = {
     },
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
+    },
+    ['body'] = {
+        Main = 'Earth Staff',
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
+        Neck = 'Evasion Torque',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
+        Body = 'Warlock\'s Tabard',
+        Hands = 'Warlock\'s Gloves',
+        Ring1 = 'Jadeite Ring',
+        Ring2 = 'Jadeite Ring',
+        Back = 'Nomad\'s Mantle +1',
+        Waist = 'Penitent\'s Rope',
+        Legs = 'Warlock\'s Tights',
+        Feet = 'Warlock\'s Boots',
     },
 };
 profile.Sets = sets;
@@ -496,6 +514,11 @@ profile.HandleMidcast = function()
                 )
             )
         );
+
+        -- Low MP Override
+        if (action.MppAftercast <= 50) then
+            gFunc.EquipSet(sets.UtilLowMP);
+        end
 
     end
 
