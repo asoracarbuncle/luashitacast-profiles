@@ -5,8 +5,8 @@ local sets = {
         Ammo = 'Phtm. Tathlum',
         Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
-        Ear1 = 'Morion Earring',
-        Ear2 = 'Morion Earring',
+        Ear1 = 'Dodge Earring',
+        Ear2 = 'Geist Earring',
         Body = { 'Warlock\'s Tabard', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
@@ -18,6 +18,7 @@ local sets = {
     },
     ['Resting'] = {
         Main = 'Dark Staff',
+        Body = 'Vermillion Cloak',
     },
     ['Engaged_Priority'] = {
         Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
@@ -25,8 +26,8 @@ local sets = {
         Ammo = 'Phtm. Tathlum',
         Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
-        Ear1 = 'Morion Earring',
-        Ear2 = 'Morion Earring',
+        Ear1 = 'Dodge Earring',
+        Ear2 = 'Geist Earring',
         Body = { 'Warlock\'s Tabard', 'Crow Jupon', 'Ctr. Scale Mail' },
         Hands = { 'Warlock\'s Gloves', 'Crow Bracers', 'Ctr. F. Gauntlets' },
         Ring1 = { 'Jadeite Ring', 'Tourmaline Ring' },
@@ -144,11 +145,29 @@ local sets = {
         Legs = 'Fisherman\'s Hose',
         Feet = 'Fisherman\'s Boots',
     },
+    ['UtilHighMP'] = {
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
+        Neck = 'Uggalepih Pendant',
+        Ear1 = 'Morion Earring',
+        Ear2 = 'Morion Earring',
+        Body = 'Warlock\'s Tabard',
+        Hands = 'Warlock\'s Gloves',
+        Ring1 = 'Astral Ring',
+        Ring2 = 'Astral Ring',
+        Waist = 'Penitent\'s Rope',
+        Legs = 'Warlock\'s Tights',
+        Feet = 'Warlock\'s Boots',
+    },
     ['UtilInvisSneak'] = {
         Back = 'Skulker\'s Cape',
     },
     ['UtilLowMP'] = {
         Neck = 'Uggalepih Pendant',
+    },
+    ['UtilMelee_Priority'] = {
+        Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
+        Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
     },
     ['UtilMagDark'] = {
         Main = 'Dark Staff',
@@ -259,7 +278,9 @@ WeaponSkills.Breath = {
 -----------------------------------------------------------------
 local Settings = {
     CurrentLevel  = 0,
-    IsFishing = false,
+    IsMeleeMode = false,
+    IsHighMPMode = false,
+    IsFishingMode = false,
 };
 
 -----------------------------------------------------------------
@@ -271,13 +292,27 @@ profile.Packer = {};
 -- When the profile loads
 -----------------------------------------------------------------
 profile.OnLoad = function()
+
+    -- Allow the addset command
     gSettings.AllowAddSet = true;
+
+    -- Register keybinds
+    AshitaCore:GetChatManager():QueueCommand(-1, '/bind F9 /lac fwd meleemode');
+    AshitaCore:GetChatManager():QueueCommand(-1, '/bind F10 /lac fwd highmpmode');
+    AshitaCore:GetChatManager():QueueCommand(-1, '/bind F11 /lac fwd fishingmode');
+
 end
 
 -----------------------------------------------------------------
 -- When the profile unloads
 -----------------------------------------------------------------
 profile.OnUnload = function()
+
+    -- Unregister keybinds
+    AshitaCore:GetChatManager():QueueCommand(-1, '/unbind F9');
+    AshitaCore:GetChatManager():QueueCommand(-1, '/unbind F10');
+    AshitaCore:GetChatManager():QueueCommand(-1, '/unbind F11');
+
 end
 
 -----------------------------------------------------------------
@@ -285,12 +320,37 @@ end
 -----------------------------------------------------------------
 profile.HandleCommand = function(args)
 
-    -- Catch the "fishing" command
-    if (args[1] == "fishing") then
-        if (Settings.IsFishing == true) then
-            Settings.IsFishing = false;
+    -- Catch the "meleemode" command
+    if (args[1] == "meleemode") then
+        if (Settings.IsMeleeMode == true) then
+            Settings.IsMeleeMode = false;
+            gFunc.Message('Melee Mode: OFF');    
         else
-            Settings.IsFishing = true;
+            Settings.IsMeleeMode = true;
+            gFunc.Message('Melee Mode: ON');    
+        end
+
+    end
+
+    -- Catch the "highmpmode" command
+    if (args[1] == "highmpmode") then
+        if (Settings.IsHighMPMode == true) then
+            Settings.IsHighMPMode = false;
+            gFunc.Message('High MP Mode: OFF');    
+        else
+            Settings.IsHighMPMode = true;
+            gFunc.Message('High MP Mode: ON');    
+        end
+    end
+
+    -- Catch the "fishingmode" command
+    if (args[1] == "fishingmode") then
+        if (Settings.IsFishingMode == true) then
+            Settings.IsFishingMode = false;
+            gFunc.Message('Fishing Mode: OFF');    
+        else
+            Settings.IsFishingMode = true;
+            gFunc.Message('Fishing Mode: ON');    
         end
     end
 
@@ -322,11 +382,22 @@ profile.HandleDefault = function()
 
     -- All other statuses
     else
-        if (Settings.IsFishing == true) then
+        gFunc.EquipSet(sets.Idle);
+
+        -- If Melee mode is enabled
+        if (Settings.IsMeleeMode == true) then
+            gFunc.EquipSet(sets.Engaged);
+
+        -- If High MP mode is enabled
+        elseif (Settings.IsHighMPMode == true) then
+            gFunc.EquipSet(sets.UtilHighMP);
+
+        -- If fishing mode is enabled
+        elseif (Settings.IsFishingMode == true) then
             gFunc.EquipSet(sets.UtilFishing);
-        else
-            gFunc.EquipSet(sets.Idle);
+
         end
+
     end
 
 end
@@ -511,6 +582,16 @@ profile.HandleMidcast = function()
         gFunc.EquipSet(sets.UtilConserveMP);
     end
     
+    -- If Melee mode is enabled
+    if (Settings.IsMeleeMode == true) then
+        gFunc.EquipSet(sets.Engaged);
+
+    -- If High MP mode is enabled
+    elseif (Settings.IsHighMPMode == true) then
+        gFunc.EquipSet(sets.UtilHighMP);
+        
+    end
+
 end
 
 -- Before a shot is taken
