@@ -1,47 +1,29 @@
 local profile = {};
-profile.Sets = {
-    Idle = {
-        Main = 'Yew Wand +1',
+local sets = {
+    ['Idle_Priority'] = {
+        Main = { 'Yew Wand +1', 'Willow Wand' },
         Sub = 'Maple Shield',
-        Neck = 'Justice Badge',
+        Head = 'Bonze\'s Circlet',
+        Neck = { 'Rep.Bronze Medal', 'Justice Badge' },
         Ear1 = 'Onyx Earring',
         Ear2 = 'Onyx Earring',
-        Body = 'Tunic',
-        Hands = 'Mitts',
-        Ring1 = 'Tourmaline Ring',
-        Ring2 = 'Tourmaline Ring',
+        Body = { 'Seer\'s Tunic', 'San d\'Orian Tunic', 'Tunic' },
+        Hands = { 'Zealot\'s Mitts', 'Mitts' },
+        Ring1 = 'Astral Ring',
+        Ring2 = 'Astral Ring',
         Back = 'Mist Silk Cape',
-        Legs = 'Linen Slops',
-        Feet = 'Solea',
+        Waist = 'Friar\'s Rope',
+        Legs = { 'Seer\'s Slacks', 'Windurstian Slops', 'Linen Slops' },
+        Feet = { 'Seer\'s Pumps', 'Solea' },
     },
-    Engaged = {
-        Main = 'Yew Wand +1',
-        Sub = 'Maple Shield',
-        Neck = 'Justice Badge',
-        Ear1 = 'Onyx Earring',
-        Ear2 = 'Onyx Earring',
-        Body = 'Tunic',
-        Hands = 'Mitts',
-        Ring1 = 'Tourmaline Ring',
-        Ring2 = 'Tourmaline Ring',
-        Back = 'Mist Silk Cape',
-        Legs = 'Linen Slops',
-        Feet = 'Solea',
-    },
-    Curing = {
-        Main = 'Yew Wand +1',
-        Sub = 'Maple Shield',
-        Neck = 'Justice Badge',
-        Ear1 = 'Onyx Earring',
-        Ear2 = 'Onyx Earring',
-        Body = 'Tunic',
-        Hands = 'Mitts',
-        Ring1 = 'Saintly Ring',
-        Ring2 = 'Saintly Ring',
-        Back = 'Mist Silk Cape',
-        Legs = 'Linen Slops',
-        Feet = 'Solea',
-    },
+};
+profile.Sets = sets;
+
+-----------------------------------------------------------------
+-- Settings
+-----------------------------------------------------------------
+local Settings = {
+    CurrentLevel  = 0,
 };
 
 local Spells = {};
@@ -71,13 +53,25 @@ end
 profile.HandleCommand = function(args)
 end
 
+-----------------------------------------------------------------
+-- When an action is complete and the character resets to a
+-- default state
+-----------------------------------------------------------------
 profile.HandleDefault = function()
+
+    -- Get the required data table(s)
     local player = gData.GetPlayer();
-    if (player.Status == 'Engaged') then
-        gFunc.EquipSet(profile.Sets.Engaged);
-    else
-        gFunc.EquipSet(profile.Sets.Idle);
+
+    -- Evaluate for level sync
+    local curLevel = AshitaCore:GetMemoryManager():GetPlayer():GetMainJobLevel();
+    if (curLevel ~= Settings.CurrentLevel) then
+        gFunc.EvaluateLevels(profile.Sets, curLevel);
+        Settings.CurrentLevel = curLevel;
     end
+
+    -- Equip the idle set
+    gFunc.EquipSet(sets.Idle);
+
 end
 
 profile.HandleAbility = function()
@@ -90,10 +84,6 @@ profile.HandlePrecast = function()
 end
 
 profile.HandleMidcast = function()
-    local action = gData.GetAction();
-    if (Spells.Curing[action.Name]) then
-        gFunc.EquipSet(profile.Sets.Curing);
-    end
 end
 
 profile.HandlePreshot = function()

@@ -13,12 +13,13 @@ local sets = {
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Back = { 'Nomad\'s Mantle +1', 'Traveler\'s Mantle' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
-        Legs = { 'Warlock\'s Tights', 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
-        Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
+        Legs = { 'Warlock\'s Tights', 'Crow Hose', 'Ctr. Cuisses' },
+        Feet = { 'Warlock\'s Boots', 'Crow Gaiters', 'Ctr. Greaves' },
     },
     ['Resting'] = {
         Main = 'Dark Staff',
-        Body = 'Vermillion Cloak',
+        Neck = 'Checkered Scarf',
+        Body = 'Errant Hpl.',
     },
     ['Engaged_Priority'] = {
         Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
@@ -34,8 +35,8 @@ local sets = {
         Ring2 = { 'Jadeite Ring', 'Tourmaline Ring' },
         Back = { 'Nomad\'s Mantle +1', 'Traveler\'s Mantle' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
-        Legs = { 'Warlock\'s Tights', 'Tiger Trousers', 'Crow Hose', 'Ctr. Cuisses' },
-        Feet = { 'Warlock\'s Boots', 'Ctr. Greaves' },
+        Legs = { 'Warlock\'s Tights', 'Crow Hose', 'Ctr. Cuisses' },
+        Feet = { 'Warlock\'s Boots', 'Crow Gaiters', 'Ctr. Greaves' },
     },
     ['WSBase'] = {},
     ['WSPhysical'] = {
@@ -63,7 +64,7 @@ local sets = {
     ['MagDivine'] = {},
     ['MagHealing_Priority'] = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
-        Body = 'White Cloak',
+        Body = { 'Errant Hpl.', 'White Cloak' },
         Neck = 'Justice Badge',
         Ear1 = 'Geist Earring',
         Ear2 = 'Geist Earring',
@@ -76,7 +77,7 @@ local sets = {
     },
     ['MagEnhancing_Priority'] = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
-        Body = 'White Cloak',
+        Body = { 'Errant Hpl.', 'White Cloak' },
         Neck = 'Enhancing Torque',
         Ear1 = 'Geist Earring',
         Ear2 = 'Geist Earring',
@@ -120,9 +121,10 @@ local sets = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
         Ammo = 'Phtm. Tathlum',
         Head = 'Warlock\'s Chapeau',
-        Neck = 'Black Neckerchief',
+        Neck = { 'Philomath Stole', 'Black Neckerchief' },
         Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
+        Body = 'Errant Hpl.',
         Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Back = { 'Red Cape +1', 'Black Cape' },
@@ -149,8 +151,8 @@ local sets = {
         Ammo = 'Phtm. Tathlum',
         Head = 'Warlock\'s Chapeau',
         Neck = 'Uggalepih Pendant',
-        Ear1 = 'Morion Earring',
-        Ear2 = 'Morion Earring',
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
         Body = 'Warlock\'s Tabard',
         Hands = 'Warlock\'s Gloves',
         Ring1 = 'Astral Ring',
@@ -192,6 +194,22 @@ local sets = {
     },
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
+    },
+    ['nuking2'] = {
+        Main = 'Earth Staff',
+        Ammo = 'Phtm. Tathlum',
+        Head = 'Warlock\'s Chapeau',
+        Neck = 'Philomath Stole',
+        Ear1 = 'Dodge Earring',
+        Ear2 = 'Geist Earring',
+        Body = 'Warlock\'s Tabard',
+        Hands = 'Warlock\'s Gloves',
+        Ring1 = 'Jadeite Ring',
+        Ring2 = 'Jadeite Ring',
+        Back = 'Nomad\'s Mantle +1',
+        Waist = 'Penitent\'s Rope',
+        Legs = 'Warlock\'s Tights',
+        Feet = 'Warlock\'s Boots',
     },
 };
 profile.Sets = sets;
@@ -327,6 +345,8 @@ profile.HandleCommand = function(args)
             gFunc.Message('Melee Mode: OFF');    
         else
             Settings.IsMeleeMode = true;
+            Settings.IsHighMPMode = false;
+            Settings.IsFishingMode = false;
             gFunc.Message('Melee Mode: ON');    
         end
 
@@ -338,7 +358,9 @@ profile.HandleCommand = function(args)
             Settings.IsHighMPMode = false;
             gFunc.Message('High MP Mode: OFF');    
         else
+            Settings.IsMeleeMode = false;
             Settings.IsHighMPMode = true;
+            Settings.IsFishingMode = false;
             gFunc.Message('High MP Mode: ON');    
         end
     end
@@ -349,6 +371,8 @@ profile.HandleCommand = function(args)
             Settings.IsFishingMode = false;
             gFunc.Message('Fishing Mode: OFF');    
         else
+            Settings.IsMeleeMode = false;
+            Settings.IsHighMPMode = false;
             Settings.IsFishingMode = true;
             gFunc.Message('Fishing Mode: ON');    
         end
