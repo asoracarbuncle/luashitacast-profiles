@@ -195,22 +195,6 @@ local sets = {
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
     },
-    ['nuking2'] = {
-        Main = 'Earth Staff',
-        Ammo = 'Phtm. Tathlum',
-        Head = 'Warlock\'s Chapeau',
-        Neck = 'Philomath Stole',
-        Ear1 = 'Dodge Earring',
-        Ear2 = 'Geist Earring',
-        Body = 'Warlock\'s Tabard',
-        Hands = 'Warlock\'s Gloves',
-        Ring1 = 'Jadeite Ring',
-        Ring2 = 'Jadeite Ring',
-        Back = 'Nomad\'s Mantle +1',
-        Waist = 'Penitent\'s Rope',
-        Legs = 'Warlock\'s Tights',
-        Feet = 'Warlock\'s Boots',
-    },
 };
 profile.Sets = sets;
 profile.Packer = {};
