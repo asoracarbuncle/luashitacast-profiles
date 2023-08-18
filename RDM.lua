@@ -16,11 +16,6 @@ local sets = {
         Legs = { 'Warlock\'s Tights', 'Crow Hose', 'Ctr. Cuisses' },
         Feet = { 'Warlock\'s Boots', 'Crow Gaiters', 'Ctr. Greaves' },
     },
-    ['Resting'] = {
-        Main = 'Dark Staff',
-        Neck = 'Checkered Scarf',
-        Body = 'Errant Hpl.',
-    },
     ['Engaged_Priority'] = {
         Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
         Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
@@ -37,6 +32,11 @@ local sets = {
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt', 'Warrior\'s Belt' },
         Legs = { 'Warlock\'s Tights', 'Crow Hose', 'Ctr. Cuisses' },
         Feet = { 'Warlock\'s Boots', 'Crow Gaiters', 'Ctr. Greaves' },
+    },
+    ['Resting'] = {
+        Main = 'Dark Staff',
+        Neck = 'Checkered Scarf',
+        Body = 'Errant Hpl.',
     },
     ['WSBase'] = {},
     ['WSPhysical'] = {
@@ -65,9 +65,10 @@ local sets = {
     ['MagHealing_Priority'] = {
         Main = { 'Mythic Wand', 'Ebony Wand +1', 'Solid Wand' },
         Body = { 'Errant Hpl.', 'White Cloak' },
-        Neck = 'Justice Badge',
+        Neck = { 'Holy Phial', 'Justice Badge' },
         Ear1 = 'Geist Earring',
         Ear2 = 'Geist Earring',
+        Hands = 'Devotee\'s Mitts',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = { 'Red Cape +1', 'Mist Silk Cape' },
@@ -157,6 +158,7 @@ local sets = {
         Hands = 'Warlock\'s Gloves',
         Ring1 = 'Astral Ring',
         Ring2 = 'Astral Ring',
+        Back = 'Red Cape +1',
         Waist = 'Penitent\'s Rope',
         Legs = 'Warlock\'s Tights',
         Feet = 'Warlock\'s Boots',
