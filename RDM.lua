@@ -2,7 +2,7 @@ local profile = {};
 local sets = {
     ['Idle_Priority'] = {
         Main = 'Earth Staff',
-        Ammo = 'Phtm. Tathlum',
+        Ammo = { 'Hedgehog Bomb', 'Phtm. Tathlum' },
         Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Dodge Earring',
@@ -17,9 +17,7 @@ local sets = {
         Feet = { 'Warlock\'s Boots', 'Crow Gaiters', 'Ctr. Greaves' },
     },
     ['Engaged_Priority'] = {
-        Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
-        Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
-        Ammo = 'Phtm. Tathlum',
+        Ammo = { 'Hedgehog Bomb', 'Phtm. Tathlum' },
         Head = { 'Warlock\'s Chapeau', 'Crow Beret', 'Centurion\'s Visor' },
         Neck = { 'Evasion Torque', 'Black Neckerchief' },
         Ear1 = 'Dodge Earring',
@@ -37,6 +35,7 @@ local sets = {
         Main = 'Dark Staff',
         Neck = 'Checkered Scarf',
         Body = 'Errant Hpl.',
+        Waist = 'Hierarch Belt',
     },
     ['WSBase'] = {},
     ['WSPhysical'] = {
@@ -73,7 +72,7 @@ local sets = {
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = { 'Red Cape +1', 'Mist Silk Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
-        Legs = 'Warlock\'s Tights',
+        Legs = { 'Mahatma Slops', 'Warlock\'s Tights' },
         Feet = 'Warlock\'s Boots',
     },
     ['MagEnhancing_Priority'] = {
@@ -82,6 +81,7 @@ local sets = {
         Neck = 'Enhancing Torque',
         Ear1 = 'Geist Earring',
         Ear2 = 'Geist Earring',
+        Hands = 'Devotee\'s Mitts',
         Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = { 'Red Cape +1', 'Mist Silk Cape' },
@@ -101,6 +101,7 @@ local sets = {
         Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = { 'Red Cape +1', 'Mist Silk Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
+        Legs = { 'Mahatma Slops', 'Warlock\'s Tights' },
         Feet = 'Warlock\'s Boots',
     },
     ['MagEnfeeblingDark_Priority'] = {
@@ -111,11 +112,11 @@ local sets = {
         Ear1 = 'Morion Earring',
         Ear2 = 'Morion Earring',
         Body = { 'Warlock\'s Tabard', 'Mage\'s Tunic' },
-        Ring1 = { 'Zircon Ring', 'Eremite\'s Ring' },
-        Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
+        Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
+        Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
         Back = { 'Red Cape +1', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
-        Legs = 'Mage\'s Slacks',
+        Legs = { 'Mahatma Slops', 'Warlock\'s Tights' },
         Feet = 'Warlock\'s Boots',
     },
     ['MagElemental_Priority'] = {
@@ -130,7 +131,7 @@ local sets = {
         Ring2 = { 'Zircon Ring', 'Eremite\'s Ring' },
         Back = { 'Red Cape +1', 'Black Cape' },
         Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
-        Legs = { 'Magic Cuisses', 'Mage\'s Slacks' },
+        Legs = { 'Mahatma Slops', 'Magic Cuisses', 'Mage\'s Slacks' },
         Feet = 'Warlock\'s Boots',
     },
     ['MagDark'] = {
@@ -148,14 +149,14 @@ local sets = {
         Legs = 'Fisherman\'s Hose',
         Feet = 'Fisherman\'s Boots',
     },
-    ['UtilHighMP'] = {
-        Ammo = 'Phtm. Tathlum',
+    ['UtilHighMP_Priority'] = {
+        Ammo = { 'Hedgehog Bomb', 'Phtm. Tathlum' },
         Head = 'Warlock\'s Chapeau',
-        Neck = 'Uggalepih Pendant',
-        Ear1 = 'Geist Earring',
-        Ear2 = 'Geist Earring',
+        Neck = { 'Uggalepih Pendant', 'Holy Phial' },
+        Ear1 = { 'Geist Earring', 'Morion Earring' },
+        Ear2 = { 'Geist Earring', 'Morion Earring' },
         Body = 'Warlock\'s Tabard',
-        Hands = 'Warlock\'s Gloves',
+        Hands = { 'Warlock\'s Gloves', 'Devotee\'s Mitts' },
         Ring1 = 'Astral Ring',
         Ring2 = 'Astral Ring',
         Back = 'Red Cape +1',
@@ -170,8 +171,8 @@ local sets = {
         Neck = 'Uggalepih Pendant',
     },
     ['UtilMelee_Priority'] = {
-        Main = { 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
-        Sub = { 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
+        Main = { 'Martial Anelace', 'Cermet Sword', 'Crimson Blade', 'Fencing Degen' },
+        Sub = { 'Acheron Shield', 'Msk.Cmd. Shield', 'Ryl.Sqr. Shield' },
     },
     ['UtilMagDark'] = {
         Main = 'Dark Staff',
@@ -197,6 +198,33 @@ local sets = {
     ['UtilMagWind'] = {
         Main = 'Wind Staff',
     },
+    ['UtilMNDEnfeebles'] = {
+        Ear1 = 'Geist Earring',
+        Ear2 = 'Geist Earring',
+        Hands = 'Devotee\'s Mitts',
+        Ring1 = { 'Aquamarine Ring', 'Saintly Ring' },
+        Ring2 = { 'Aquamarine Ring', 'Saintly Ring' },
+        Back = { 'Red Cape +1', 'Mist Silk Cape' },
+        Waist = { 'Penitent\'s Rope', 'Ryl.Kgt. Belt' },
+        Legs = { 'Mahatma Slops', 'Warlock\'s Tights' },
+        Feet = 'Warlock\'s Boots',
+    },
+    ['EcoWarrior'] = {
+        Main = 'Yew Wand +1',
+        Sub = 'Decurion\'s Shield',
+        Head = 'Bonze\'s Circlet',
+        Neck = 'Rep.Bronze Medal',
+        Ear1 = 'Onyx Earring',
+        Ear2 = 'Onyx Earring',
+        Body = 'Lizard Jerkin',
+        Hands = 'Zealot\'s Mitts',
+        Ring1 = 'Astral Ring',
+        Ring2 = 'Astral Ring',
+        Back = 'Mist Silk Cape',
+        Waist = 'Friar\'s Rope',
+        Legs = 'Windurstian Slops',
+        Feet = 'Leaping Boots',
+    },
 };
 profile.Sets = sets;
 profile.Packer = {};
@@ -220,6 +248,18 @@ Spells.Cures = {
     ['Cura'] = true,
     ['Cura II'] = true,
     ['Cura III'] = true,
+}
+
+-----------------------------------------------------------------
+-- MND Based Enfeebling spells
+-----------------------------------------------------------------
+Spells.MNDEnfeebles = {
+    ['Addle'] = true,
+    ['Blind'] = true,
+    ['Distract'] = true,
+    ['Frazzle'] = true,
+    ['Paralyze'] = true,
+    ['Slow'] = true,
 }
 
 -----------------------------------------------------------------
@@ -396,7 +436,7 @@ profile.HandleDefault = function()
 
         -- If Melee mode is enabled
         if (Settings.IsMeleeMode == true) then
-            gFunc.EquipSet(sets.Engaged);
+            gFunc.EquipSet(sets.UtilMelee);
 
         -- If High MP mode is enabled
         elseif (Settings.IsHighMPMode == true) then
@@ -510,6 +550,11 @@ profile.HandleMidcast = function()
                     )
                 )
             );
+        end
+
+        -- MND Based Enfeebles
+        if (MNDEnfeebles[action.Name]) then
+            gFunc.EquipSet(UtilMNDEnfeebles);
         end
     
         -- Element overrides

@@ -28,11 +28,14 @@ local sets = {
         Legs = 'Drachen Brais',
         Feet = 'Drachen Greaves',
     },
+    ['HighDefense'] = {
+    },
     ['Resting'] = {},
     ['FastCast'] = {},
     ['JAAncientCircle'] = {
         Legs = 'Drachen Brais',
     },
+    ['JACallWyvern'] = {},
     ['JAJump'] = {
         Head = 'Drachen Armet',
         Neck = 'Spike Necklace',
@@ -64,10 +67,10 @@ local sets = {
     ['WSPhysical'] = {},
     ['WSMagical'] = {},
     ['WSBreath'] = {},
-    ['MagHealing'] = {
+    ['MagBreathTrigger'] = {
         Head = 'Drachen Armet',
     },
-    ['BreathBonus'] = {
+    ['PetHealingBreathBonus'] = {
         Head = 'Drachen Armet',
         Body = 'Wyvern Mail',
         Legs = 'Drachen Brais',
@@ -75,23 +78,66 @@ local sets = {
 };
 profile.Sets = sets;
 
+-----------------------------------------------------------------------------------
 -- Abilities table(s)
-local PetAbilities = {};
+-----------------------------------------------------------------------------------
+local Abilities = {};
 
--- Wyvern breath
-PetAbilities.WyvernBreath = {
-    ['Flame Breath '] = true,
-    ['Frost Breath '] = true,
-    ['Sand Breath '] = true,
-    ['Hydro Breath '] = true,
-    ['Gust Breath '] = true,
-    ['Lightning Breath '] = true,
-    ['Healing Breath I '] = true,
-    ['Healing Breath II '] = true,
-    ['Healing Breath III '] = true,
+-- Jumps
+Abilities.Jumps = {
+    ['High Jump'] = true,
+    ['Jump'] = true,
 }
 
--- Weapon Skill Table(s)
+-----------------------------------------------------------------------------------
+-- Jobs Table(s)
+-----------------------------------------------------------------------------------
+local Jobs = {};
+
+-- Defensive jobs skills
+Jobs.Defensive = {
+    ['BLM'] = true,
+    ['BLU'] = true,
+    ['GEO'] = true,
+    ['RDM'] = true,
+    ['SCH'] = true,
+    ['SMN'] = true,
+    ['WHM'] = true,
+};
+
+-- Hybrid jobs skills
+Jobs.Hybrid = {
+    ['BRD'] = true,
+    ['DRK'] = true,
+    ['NIN'] = true,
+    ['PLD'] = true,
+    ['RUN'] = true,
+};
+
+-----------------------------------------------------------------------------------
+-- Pet abilities table(s)
+-----------------------------------------------------------------------------------
+local PetAbilities = {};
+
+PetAbilities.HealingBreath = {
+    ['Healing Breath I'] = true,
+    ['Healing Breath II'] = true,
+    ['Healing Breath III'] = true,
+}
+
+-----------------------------------------------------------------------------------
+-- Spells table(s)
+-----------------------------------------------------------------------------------
+local Spells = {};
+
+-- Healing breath triggers
+Spells.HealingBreathTriggers = {
+    ['Dia'] = true,
+}
+
+-----------------------------------------------------------------------------------
+-- Weapon skill Table(s)
+-----------------------------------------------------------------------------------
 local WeaponSkills = {};
 
 -- Physical weapon skills
@@ -116,7 +162,9 @@ WeaponSkills.Magical = {
     ['Raiden Thrust'] = true,
 };
 
--- Settings
+-----------------------------------------------------------------------------------
+-- Global settings
+-----------------------------------------------------------------------------------
 local Settings = {
     CurrentLevel  = 0,
 };
@@ -125,40 +173,61 @@ local Settings = {
 profile.Packer = {
 };
 
+-----------------------------------------------------------------------------------
 -- Handle pet actions
-local function HandlePetAction(petAction)
+-----------------------------------------------------------------------------------
+local function HandlePetAction(action)
 
-    if PetAbilities.WyvernBreath[petAction.Name] then
-        gFunc.EquipSet(sets.BreathBonus);
+    if (PetAbilities.HealingBreath[action.Name]) then
+        gFunc.EquipSet(sets.PetHealingBreathBonus);
     end
 
 end
 
--- When the profile loads
+-----------------------------------------------------------------------------------
+-- Handle turtle mode
+-----------------------------------------------------------------------------------
+local function HandleTurtleMode(player)
+
+    if (player.HPP <= 25) then
+        gFunc.EquipSet(sets.HighDefense);
+    end
+
+end
+
+-----------------------------------------------------------------------------------
+-- Profile loads
+-----------------------------------------------------------------------------------
 profile.OnLoad = function()
     gSettings.AllowAddSet = true;
 end
 
--- When the profile unloads
+-----------------------------------------------------------------------------------
+-- Profile unloads
+-----------------------------------------------------------------------------------
 profile.OnUnload = function()
 end
 
+-----------------------------------------------------------------------------------
 -- When a manual command is sent to Ashitacast
+-----------------------------------------------------------------------------------
 profile.HandleCommand = function(args)
 end
 
+-----------------------------------------------------------------------------------
 -- When an action is complete and the character resets to a default state
+-----------------------------------------------------------------------------------
 profile.HandleDefault = function()
+    
+    -- Get the required data table(s)
+    local player = gData.GetPlayer();
+    local petAction = gData.GetPetAction();
 
     -- Evaluate pet actions before anything else
-    local petAction = gData.GetPetAction();
     if (petAction ~= nil) then
         HandlePetAction(petAction);
         return;
     end
-    
-    -- Get the player table
-    local player = gData.GetPlayer();
 
     -- Evaluate for level sync
     local curLevel = AshitaCore:GetMemoryManager():GetPlayer():GetMainJobLevel();
@@ -181,58 +250,109 @@ profile.HandleDefault = function()
 
     end
 
+    -- Turtle mode override
+    HandleTurtleMode(player);
+
 end
 
+-----------------------------------------------------------------------------------
 -- When job abilities are triggered
+-----------------------------------------------------------------------------------
 profile.HandleAbility = function()
 
-    -- Get the action table
+    -- Get the required data table(s)
     local action = gData.GetAction();
+    local player = gData.GetPlayer();
 
-    -- Equip the appropriate gear
+    -- Ancient Circle
     if (action.Name == 'Ancient Circle') then
         gFunc.EquipSet(sets.JAAncientCircle);
-    elseif (action.Name == 'Jump') then
+
+    -- Call Wyvern
+    elseif (action.Name == 'Call Wyvern') then
+        gFunc.EquipSet(sets.JACallWyvern);
+
+    -- Jumps
+    elseif (Abilities.Jumps[action.Name]) then
         gFunc.EquipSet(sets.JAJump);
+
     end
-    
+
+    -- Turtle mode override
+    HandleTurtleMode(player);
+
 end
 
+-----------------------------------------------------------------------------------
 -- When items are used
+-----------------------------------------------------------------------------------
 profile.HandleItem = function()
 end
 
+-----------------------------------------------------------------------------------
 -- Before casting begins
+-----------------------------------------------------------------------------------
 profile.HandlePrecast = function()
+
+    -- Equip fast cast set
     gFunc.EquipSet(sets.FastCast);
+
+    -- Turtle mode override
+    local player = gData.GetPlayer();
+    HandleTurtleMode(player);
+
 end
 
+-----------------------------------------------------------------------------------
 -- When a spell is cast
+-----------------------------------------------------------------------------------
 profile.HandleMidcast = function()
 
-    -- Get the action table
+    -- Get the required data table(s)
     local action = gData.GetAction();
+    local player = gData.GetPlayer();
 
-    -- Healing Magic
-    if (action.Skill == 'Healing Magic') then
-        gFunc.EquipSet(sets.MagHealing);
+    -- Check if the spell is a breath trigger
+    if (Spells.HealingBreathTriggers[action.Name]) then
+
+        -- If the subjob is defensive
+        if (Jobs.Defensive[player.SubJob]) then
+            if (player.HPP <= 50) then
+                gFunc.EquipSet(sets.MagBreathTrigger);
+            end
+
+        -- If the subjob is hybrid
+        elseif (Jobs.Defensive[player.SubJob]) then
+            if (player.HPP <= 33) then
+                gFunc.EquipSet(sets.MagBreathTrigger);
+            end
+
+        end
+
     end
 
 end
 
+-----------------------------------------------------------------------------------
 -- Before a shot is taken
+-----------------------------------------------------------------------------------
 profile.HandlePreshot = function()
 end
 
+-----------------------------------------------------------------------------------
 -- When a shot is taken
+-----------------------------------------------------------------------------------
 profile.HandleMidshot = function()
 end
 
+-----------------------------------------------------------------------------------
 -- When a weapons skill is triggered
+-----------------------------------------------------------------------------------
 profile.HandleWeaponskill = function()
 
-    -- Get the action table
+    -- Get the required data table(s)
     local action = gData.GetAction();
+    local player = gData.GetPlayer();
 
     -- Physical weapon skill
     if (WeaponSkills.Physical[action.Name]) then
@@ -252,16 +372,10 @@ profile.HandleWeaponskill = function()
             )
         );
 
-    -- Breath weapon skill
-    elseif (WeaponSkills.Breath[action.Name]) then
-        gFunc.EquipSet(
-            gFunc.Combine(
-                sets.WSBase,
-                sets.WSBreath
-            )
-        );
-    
     end
+
+    -- Turtle mode override
+    HandleTurtleMode(player);
 
 end
 
